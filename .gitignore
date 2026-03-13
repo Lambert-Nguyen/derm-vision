@@ -1,3 +1,22 @@
+# ── Project-specific ignores ──────────────────────────────────────────────────
+
+# Raw and processed data (large files — download separately)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Trained model checkpoints and weights
+outputs/checkpoints/*
+!outputs/checkpoints/.gitkeep
+*.pth
+*.pt
+
+# Environment secrets
+.env
+
+# ── Standard Python ignores ───────────────────────────────────────────────────
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

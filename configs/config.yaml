@@ -1,0 +1,52 @@
+# Hyperparameters and dataset configuration for the derm-vision project
+# ISIC 2019 — 8-class skin lesion classification
+
+# ── Data ─────────────────────────────────────────────────────────────────────
+data:
+  img_dir: data/raw
+  train_csv: data/splits/train.csv
+  val_csv: data/splits/val.csv
+  test_csv: data/splits/test.csv
+
+# ── Classes ───────────────────────────────────────────────────────────────────
+num_classes: 8
+class_names:
+  - MEL      # Melanoma
+  - NV       # Melanocytic nevus
+  - BCC      # Basal cell carcinoma
+  - AKIEC    # Actinic keratosis / Intraepithelial carcinoma
+  - BKL      # Benign keratosis-like lesion
+  - DF       # Dermatofibroma
+  - VASC     # Vascular lesion
+  - SCC      # Squamous cell carcinoma
+
+# ── Model ─────────────────────────────────────────────────────────────────────
+model: efficientnet          # options: efficientnet | custom_cnn | ensemble
+image_size: 300              # native EfficientNet-B3 input size
+
+# ── Training ──────────────────────────────────────────────────────────────────
+batch_size: 32
+epochs: 30
+learning_rate: 0.0001
+weight_decay: 0.0001
+num_workers: 4
+
+# Learning-rate scheduler (CosineAnnealingWarmRestarts)
+scheduler_t0: 10
+scheduler_t_mult: 2
+
+# ── Fine-tuning stages ────────────────────────────────────────────────────────
+# Stage 1: freeze backbone, train head only
+stage1_epochs: 5
+stage1_lr: 0.001
+
+# Stage 2: unfreeze all, fine-tune end-to-end
+stage2_lr: 0.00001
+
+# ── Output paths ──────────────────────────────────────────────────────────────
+checkpoint_dir: outputs/checkpoints
+results_dir: outputs/results
+
+# ── Weights & Biases ──────────────────────────────────────────────────────────
+wandb_project: derm-vision
+run_name: null               # set to a string to name the W&B run
