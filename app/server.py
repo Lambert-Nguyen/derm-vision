@@ -16,6 +16,9 @@ sys.path.insert(0, str(PROJECT_ROOT))
 import torch
 import numpy as np
 from PIL import Image
+from pillow_heif import register_heif_opener
+
+register_heif_opener()
 
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.staticfiles import StaticFiles
